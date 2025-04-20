@@ -61,17 +61,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createUser(View view) {
-        String doc = etDocumento.getText().toString().trim();
-        String user = etUsuario.getText().toString().trim();
-        String name = etNombres.getText().toString().trim();
-        String last = etApellidos.getText().toString().trim();
-        String pass = etContrasena.getText().toString().trim();
-
-        if (doc.isEmpty() || user.isEmpty() || name.isEmpty() || last.isEmpty() || pass.isEmpty()) {
+        capData();
+        if (String.valueOf(documento).isEmpty() || usuario.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Todos los campos son obligatorios para crear", Toast.LENGTH_SHORT).show();
             return;
         }
-        capData();
         User userObj = new User(documento, nombres, apellidos, usuario, pass);
         UserRepository userRepository = new UserRepository(this, view);
         userRepository.insertUser(userObj);
@@ -79,18 +73,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUser(View view) {
-        String doc = etDocumento.getText().toString().trim();
-        String user = etUsuario.getText().toString().trim();
-        String name = etNombres.getText().toString().trim();
-        String last = etApellidos.getText().toString().trim();
-        String pass = etContrasena.getText().toString().trim();
-
-        if (doc.isEmpty() || user.isEmpty() || name.isEmpty() || last.isEmpty() || pass.isEmpty()) {
+        capData();
+        if (String.valueOf(documento).isEmpty() || usuario.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Todos los campos son obligatorios para actualizar", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        documento = Integer.parseInt(doc);
         UserRepository userRepository = new UserRepository(this, view);
         User existing = userRepository.getUserByDocument(documento);
         if (existing == null) {
@@ -98,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        capData();
         User userObj = new User(documento, nombres, apellidos, usuario, pass);
         userRepository.updateUser(userObj);
         listUsers(view);
@@ -106,12 +93,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteUser(View view) {
-        String doc = etDocumento.getText().toString().trim();
-        if (doc.isEmpty()) {
+        capData();
+        if (String.valueOf(documento).isEmpty()) {
             Toast.makeText(this, "Ingrese el documento para eliminar", Toast.LENGTH_SHORT).show();
             return;
         }
-        documento = Integer.parseInt(doc);
         UserRepository userRepository = new UserRepository(this, view);
         User existing = userRepository.getUserByDocument(documento);
         if (existing == null) {
@@ -124,12 +110,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchByDocument(View view) {
-        String doc = etDocumento.getText().toString().trim();
-        if (doc.isEmpty()) {
+        capData();
+        if (String.valueOf(documento).isEmpty()) {
             Toast.makeText(this, "Ingrese el documento para buscar", Toast.LENGTH_SHORT).show();
             return;
         }
-        documento = Integer.parseInt(doc);
         UserRepository userRepository = new UserRepository(this, view);
         User userObj = userRepository.getUserByDocument(documento);
         ArrayList<User> result = new ArrayList<>();
@@ -144,13 +129,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchByLastName(View view) {
-        String last = etApellidos.getText().toString().trim();
-        if (last.isEmpty()) {
+        capData();
+        if (apellidos.isEmpty()) {
             Toast.makeText(this, "Ingrese el apellido para buscar", Toast.LENGTH_SHORT).show();
             return;
         }
         UserRepository userRepository = new UserRepository(this, view);
-        ArrayList<User> result = userRepository.getUsersByLastName(last);
+        ArrayList<User> result = userRepository.getUsersByLastName(apellidos);
         if (result.isEmpty()) {
             Toast.makeText(this, "No se encontraron usuarios con ese apellido", Toast.LENGTH_SHORT).show();
         }
@@ -167,11 +152,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void capData() {
-        this.documento = Integer.parseInt(this.etDocumento.getText().toString().trim());
-        this.usuario = this.etUsuario.getText().toString().trim();
-        this.nombres = this.etNombres.getText().toString().trim();
-        this.apellidos = this.etApellidos.getText().toString().trim();
-        this.pass = this.etContrasena.getText().toString().trim();
+        String doc = etDocumento.getText().toString().trim();
+        this.documento = doc.isEmpty() ? 0 : Integer.parseInt(doc);
+        this.usuario = etUsuario.getText().toString().trim();
+        this.nombres = etNombres.getText().toString().trim();
+        this.apellidos = etApellidos.getText().toString().trim();
+        this.pass = etContrasena.getText().toString().trim();
     }
 
     private void clearFields() {
