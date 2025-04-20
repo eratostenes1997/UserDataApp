@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">UserDataApp</string>
+    <string name="titulo">Gestión de Usuario</string>
+    <string name="hint_documento">Ingrese el Documento</string>
+    <string name="hint_usuario">Ingrese el Usuario</string>
+    <string name="hint_nombres">Ingrese los Nombres</string>
+    <string name="hint_apellidos">Ingrese los Apellidos</string>
+    <string name="hint_contrasena">Ingrese la Contraseña</string>
+    <string name="btn_buscar_documento">Buscar por documento</string>
+    <string name="btn_buscar_apellido">Buscar por apellido</string>
+    <string name="btn_listar">Listar todo</string>
+    <string name="btn_borrar">Borrar por id</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_actualizar">Actualizar</string>
+</resources>
